@@ -1,0 +1,7 @@
+FROM python:alpine
+
+WORKDIR /usr/src/app
+
+COPY ./logoutputdate.py /usr/src/app
+
+CMD ["python3", "logoutputdate.py"]

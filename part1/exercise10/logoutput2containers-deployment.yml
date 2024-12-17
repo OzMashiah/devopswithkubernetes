@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logoutput-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logoutput
+  template:
+    metadata:
+      labels:
+        app: logoutput
+    spec:
+      volumes:
+        - name: shared-log
+          emptyDir: {}
+      containers:
+        - name: logoutputdate
+          image: mashiahoz/logoutputdate
+          volumeMounts:
+            - name: shared-log
+              mountPath: /usr/src/app/logs
+        - name: logoutputhash
+          image: mashiahoz/logoutputhash
+          volumeMounts:
+            - name: shared-log
+              mountPath: /usr/src/app/logs
