@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-configmap
+data:
+  serverconfig.txt: |
+    maxplayers=12
+    difficulty=2
