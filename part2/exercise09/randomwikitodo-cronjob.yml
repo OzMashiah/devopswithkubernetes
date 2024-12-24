@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: randomwikitodo
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: randomwikitodo
+            image: mashiahoz/randomwikitodo
+            imagePullPolicy: IfNotPresent
+            env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: DB_PASSWORD
+          restartPolicy: OnFailure
