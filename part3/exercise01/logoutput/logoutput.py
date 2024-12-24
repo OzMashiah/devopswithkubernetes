@@ -12,7 +12,7 @@ import os
 randomstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8)) # 8 length randomly generated string.
 app = Flask(__name__) # Initialize flask app.
 
-@app.route('/status', methods=['GET'])
+@app.route('/', methods=['GET'])
 def get_status():
     # Endpoint to return the current status (timestamp and random string)
     date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
