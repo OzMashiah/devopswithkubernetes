@@ -23,3 +23,12 @@ spec:
           volumeMounts:
             - name: todo-image
               mountPath: /usr/src/app/images
+  volumeClaimTemplates:
+    - metadata:
+        name: todo-data-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 100Mi

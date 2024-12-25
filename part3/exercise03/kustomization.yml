@@ -8,8 +8,6 @@ resources:
   - todo-backend/todo-backend-clusterip.yml
   - todo-backend/todo-backend-deployment.yml
   
-  - todo/todo-pv.yml
-  - todo/todo-pvc.yml
   - todo/todo-nodeport.yml
   - todo/todo-ingress.yml
   - todo/todo-deployment.yml
