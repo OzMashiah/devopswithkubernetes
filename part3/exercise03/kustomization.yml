@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - postgres/postgres-stset.yml
+  - postgres/postgrespass-secret.yml
+
+  - todo-backend/todo-backend-clusterip.yml
+  - todo-backend/todo-backend-deployment.yml
+  
+  - todo/todo-pv.yml
+  - todo/todo-pvc.yml
+  - todo/todo-nodeport.yml
+  - todo/todo-ingress.yml
+  - todo/todo-deployment.yml
+images:
+  - name: PROJECT/TODO_IMAGE
+    newName: mashiahoz/todo
+  - name: PROJECT/TODO_BACKEND_IMAGE
+    newName: mashiahoz/todo-backend
+  - name: PROJECT/POSTGRES_IMAGE
+    newName: postgres:latest
