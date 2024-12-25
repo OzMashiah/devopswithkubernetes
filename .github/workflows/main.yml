@@ -37,7 +37,7 @@ jobs:
           export SOPS_AGE_KEY_FILE=/tmp/age.key
 
       - name: Decrypt secrets
-        run: sops -d part3/exercise03/postgres/postgrespass-secret.enc.yml > part3/exercise03/postgres/postgrespass-secret.yml
+        run: /usr/local/bin/sops -d part3/exercise03/postgres/postgrespass-secret.enc.yml > part3/exercise03/postgres/postgrespass-secret.yml
 
       - uses: google-github-actions/auth@v2
         with:
