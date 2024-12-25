@@ -27,9 +27,10 @@ jobs:
 
       - name: Install sops
         run: |
-          curl -Lo sops https://github.com/mozilla/sops/releases/download/v3.7.3/sops-v3.7.3-linux-amd64
-          chmod +x ./sops
-          sudo mv sops /usr/local/bin/
+          mkdir -p $GOPATH/src/github.com/getsops/sops/
+          git clone https://github.com/getsops/sops.git $GOPATH/src/github.com/getsops/sops/
+          cd $GOPATH/src/github.com/getsops/sops/
+          make install
 
       - name: Import age private key
         run: |
@@ -37,7 +38,7 @@ jobs:
           export SOPS_AGE_KEY_FILE=/tmp/age.key
 
       - name: Decrypt secrets
-        run: /usr/local/bin/sops -d part3/exercise03/postgres/postgrespass-secret.enc.yml > part3/exercise03/postgres/postgrespass-secret.yml
+        run: sops -d part3/exercise03/postgres/postgrespass-secret.enc.yml > part3/exercise03/postgres/postgrespass-secret.yml
 
       - uses: google-github-actions/auth@v2
         with:
