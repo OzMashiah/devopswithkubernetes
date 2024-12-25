@@ -73,6 +73,8 @@ jobs:
           kustomize edit set image PROJECT/TODO_IMAGE=gcr.io/$PROJECT_ID/$TODO_IMAGE:$BRANCH-$GITHUB_SHA
           kustomize edit set image PROJECT/TODO_BACKEND_IMAGE=gcr.io/$PROJECT_ID/$TODO_BACKEND_IMAGE:$BRANCH-$GITHUB_SHA
 
+          ls -l part3/exercise03
+          ls -l part3/exercise03/postgres
           kustomize build part3/exercise03/. | kubectl apply -f -
           kubectl rollout status deployment $TODO_DEP
           kubectl rollout status deployment $TODO_BACKEND_DEP
