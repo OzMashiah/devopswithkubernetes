@@ -4,7 +4,8 @@ resources:
   - postgres/postgres-stset.yml
   - postgres/postgrespass-secret.yml
 
-  - todo-backend/todo-backend-clusterip.yml
+  - todo-backend/todo-backend-nodeport.yml
+  - todo-backend/todo-backend-ingress.yml
   - todo-backend/todo-backend-deployment.yml
   
   - todo/todo-pvc.yml

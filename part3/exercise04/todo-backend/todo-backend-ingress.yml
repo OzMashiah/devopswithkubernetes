@@ -1,8 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: todo
-  name: todo-backend-ingress
+  name: todo-backend-ing
 spec:
   rules:
   - http:
@@ -13,4 +12,4 @@ spec:
           service:
             name: todo-backend-svc
             port:
-              number: 2345
+              number: 80

@@ -73,6 +73,11 @@ def initialize_db():
 def log_request():
     logger.info(f"Request received: {request.method} {request.path}, Body: {request.get_data(as_text=True)}")
 
+# GET / for health checks
+@app.route('/', methods=['GET'])
+def healthcheck():
+    return 'OK', 200
+
 # GET /todos - Retrieve all to-dos
 @app.route('/todos', methods=['GET'])
 def get_todos():
