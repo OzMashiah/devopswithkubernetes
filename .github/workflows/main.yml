@@ -60,10 +60,10 @@ jobs:
 
       - name: Build and publish
         run: |-
-          docker build --tag "gcr.io/$PROJECT_ID/$TODO_IMAGE:$BRANCH-$GITHUB_SHA" ./part3/exercise03/todo 
+          docker build --tag "gcr.io/$PROJECT_ID/$TODO_IMAGE:$BRANCH-$GITHUB_SHA" ./part3/exercise04/todo 
           docker push "gcr.io/$PROJECT_ID/$TODO_IMAGE:$BRANCH-$GITHUB_SHA"
 
-          docker build --tag "gcr.io/$PROJECT_ID/$TODO_BACKEND_IMAGE:$BRANCH-$GITHUB_SHA" ./part3/exercise03/todo-backend
+          docker build --tag "gcr.io/$PROJECT_ID/$TODO_BACKEND_IMAGE:$BRANCH-$GITHUB_SHA" ./part3/exercise04/todo-backend
           docker push "gcr.io/$PROJECT_ID/$TODO_BACKEND_IMAGE:$BRANCH-$GITHUB_SHA"
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2

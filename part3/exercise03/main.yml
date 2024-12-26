@@ -27,17 +27,17 @@ jobs:
 
       - name: Install sops
         run: |
-          curl -Lo sops https://github.com/mozilla/sops/releases/download/v3.7.3/sops-v3.7.3-linux-amd64
-          chmod +x ./sops
-          sudo mv sops /usr/local/bin/
+          set -euo pipefail
+          wget https://github.com/getsops/sops/releases/download/v3.8.1/sops_3.8.1_amd64.deb
+          echo ' 535bce529e2df7368ffba3fed2b427b9f964318fa28959d913924a70ba01c086  sops_3.8.1_amd64.deb' > sops_3.8.1_amd64.deb.sig
+          sha256sum -c sops_3.8.1_amd64.deb.sig
+          sudo dpkg -i sops_3.8.1_amd64.deb
 
       - name: Import age private key
         run: |
           echo "$SOPS_AGE_PRIVATE_KEY" > /tmp/age.key
           export SOPS_AGE_KEY_FILE=/tmp/age.key
-
-      - name: Decrypt secrets
-        run: sops -d part3/exercise03/postgres/postgrespass-secret.enc.yml > part3/exercise03/postgres/postgrespass-secret.yml
+          sops -d part3/exercise03/postgres/postgrespass-secret.enc.yml > part3/exercise03/postgres/postgrespass-secret.yml
 
       - uses: google-github-actions/auth@v2
         with:
@@ -70,14 +70,26 @@ jobs:
 
       - name: Deploy
         run: |-
+          cd part3/exercise03
+          
+          if [[ "${GITHUB_REF#refs/heads/}" == "main" ]]; then
+            kubectl create namespace default || true
+            kubectl config set-context --current --namespace=default
+            kustomize edit set namespace default
+          else
+            kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+            kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+            kustomize edit set namespace ${GITHUB_REF#refs/heads/}
+          fi
+          
           kustomize edit set image PROJECT/TODO_IMAGE=gcr.io/$PROJECT_ID/$TODO_IMAGE:$BRANCH-$GITHUB_SHA
           kustomize edit set image PROJECT/TODO_BACKEND_IMAGE=gcr.io/$PROJECT_ID/$TODO_BACKEND_IMAGE:$BRANCH-$GITHUB_SHA
 
-          kustomize build .part3/exercise03/. | kubectl apply -f -
-          kubectl rollout status deployment $TODO_DEP
-          kubectl rollout status deployment $TODO_BACKEND_DEP
-          kubectl rollout status statefulset $POSTGRES_STSET
-          kubectl get services -o wide
+          kustomize build . | kubectl apply -f -
+          kubectl rollout status statefulset $POSTGRES_STSET -n ${GITHUB_REF#refs/heads/}
+          kubectl rollout status deployment $TODO_BACKEND_DEP -n ${GITHUB_REF#refs/heads/}
+          kubectl rollout status deployment $TODO_DEP -n ${GITHUB_REF#refs/heads/}
+          kubectl get services -o wide -n ${GITHUB_REF#refs/heads/}
 
       - name: Clean up decrypted secrets
         run: rm part3/exercise03/postgres/postgrespass-secret.yml
