@@ -19,7 +19,7 @@ spec:
             claimName: todo-claim
       containers:
         - name: todo 
-          image: mashiahoz/todo
+          image: PROJECT/TODO_IMAGE
           volumeMounts:
             - name: todo-image
               mountPath: /usr/src/app/images

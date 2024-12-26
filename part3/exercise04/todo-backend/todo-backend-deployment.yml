@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-backend 
-          image: mashiahoz/todo-backend
+          image: PROJECT/TODO_BACKEND_IMAGE 
           env:
           - name: DB_PASSWORD
             valueFrom:
