@@ -41,7 +41,7 @@ jobs:
 
       - name: Delete
         run: |-
-          ECHO $BRANCH
+          echo $BRANCH
           BRANCH_NAME=$(echo $BRANCH | sed 's/refs\/heads\///')
           echo $BRANCH_NAME
           kubectl delete namespace $BRANCH_NAME
