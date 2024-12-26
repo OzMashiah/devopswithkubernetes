@@ -81,10 +81,12 @@ jobs:
             kubectl create namespace default || true
             kubectl config set-context --current --namespace=default
             kustomize edit set namespace default
+            NAMESPACE = default
           else
             kubectl create namespace ${GITHUB_REF#refs/heads/} || true
             kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
             kustomize edit set namespace ${GITHUB_REF#refs/heads/}
+            NAMESPACE = ${GITHUB_REF#refs/heads/}
           fi
           
           kustomize edit set image PROJECT/TODO_IMAGE=gcr.io/$PROJECT_ID/$TODO_IMAGE:$BRANCH-$GITHUB_SHA
@@ -92,10 +94,10 @@ jobs:
           kustomize edit set image PROJECT/REVERSEPROXY_IMAGE=gcr.io/$PROJECT_ID/$REVERSEPROXY_IMAGE:$BRANCH-$GITHUB_SHA
 
           kustomize build . | kubectl apply -f -
-          kubectl rollout status statefulset $POSTGRES_STSET -n ${GITHUB_REF#refs/heads/}
-          kubectl rollout status deployment $TODO_BACKEND_DEP -n ${GITHUB_REF#refs/heads/}
-          kubectl rollout status deployment $TODO_DEP -n ${GITHUB_REF#refs/heads/}
-          kubectl rollout status deployment $REVERSEPROXY_DEP -n ${GITHUB_REF#refs/heads/}
+          kubectl rollout status statefulset $POSTGRES_STSET -n $NAMESPACE
+          kubectl rollout status deployment $TODO_BACKEND_DEP -n $NAMESPACE
+          kubectl rollout status deployment $TODO_DEP -n $NAMESPACE
+          kubectl rollout status deployment $REVERSEPROXY_DEP -n $NAMESPACE
           kubectl get services -o wide -n ${GITHUB_REF#refs/heads/}
 
       - name: Clean up decrypted secrets
