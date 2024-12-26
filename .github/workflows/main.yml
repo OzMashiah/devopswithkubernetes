@@ -70,7 +70,7 @@ jobs:
 
       - name: Deploy
         run: |-
-          cd part3/exercise03
+          cd part3/exercise04
           
           if [[ "${GITHUB_REF#refs/heads/}" == "main" ]]; then
             kubectl create namespace default || true
