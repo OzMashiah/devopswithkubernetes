@@ -86,9 +86,9 @@ jobs:
           kustomize edit set image PROJECT/TODO_BACKEND_IMAGE=gcr.io/$PROJECT_ID/$TODO_BACKEND_IMAGE:$BRANCH-$GITHUB_SHA
 
           kustomize build . | kubectl apply -f -
-          kubectl rollout status statefulset $POSTGRES_STSET -n todo
-          kubectl rollout status deployment $TODO_BACKEND_DEP -n todo
-          kubectl rollout status deployment $TODO_DEP -n todo
+          kubectl rollout status statefulset $POSTGRES_STSET -n ${GITHUB_REF#refs/heads/}
+          kubectl rollout status deployment $TODO_BACKEND_DEP -n ${GITHUB_REF#refs/heads/}
+          kubectl rollout status deployment $TODO_DEP -n ${GITHUB_REF#refs/heads/}
           kubectl get services -o wide -n ${GITHUB_REF#refs/heads/}
 
       - name: Clean up decrypted secrets
