@@ -81,12 +81,12 @@ jobs:
             kubectl create namespace default || true
             kubectl config set-context --current --namespace=default
             kustomize edit set namespace default
-            NAMESPACE = default
+            NAMESPACE=default
           else
             kubectl create namespace ${GITHUB_REF#refs/heads/} || true
             kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
             kustomize edit set namespace ${GITHUB_REF#refs/heads/}
-            NAMESPACE = ${GITHUB_REF#refs/heads/}
+            NAMESPACE=${GITHUB_REF#refs/heads/}
           fi
           
           kustomize edit set image PROJECT/TODO_IMAGE=gcr.io/$PROJECT_ID/$TODO_IMAGE:$BRANCH-$GITHUB_SHA
