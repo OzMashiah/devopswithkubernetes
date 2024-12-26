@@ -89,7 +89,7 @@ jobs:
           kubectl rollout status statefulset $POSTGRES_STSET -n todo
           kubectl rollout status deployment $TODO_BACKEND_DEP -n todo
           kubectl rollout status deployment $TODO_DEP -n todo
-          kubectl get services -o wide -n todo
+          kubectl get services -o wide -n ${GITHUB_REF#refs/heads/}
 
       - name: Clean up decrypted secrets
         run: rm part3/exercise03/postgres/postgrespass-secret.yml
