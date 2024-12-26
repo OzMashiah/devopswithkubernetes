@@ -1,4 +1,4 @@
-name: Delete namespace upon branch deletion
+name: Delete namespace upon branch deletion.
 
 on:
   delete:
