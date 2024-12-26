@@ -9,10 +9,10 @@ env:
   GKE_ZONE: europe-north1-b
   TODO_IMAGE: todo
   TODO_BACKEND_IMAGE: todo-backend
-  POSTGRES_IMAGE: postgres 
   TODO_DEP: todo-dep
   TODO_BACKEND_DEP: todo-backend-dep
   POSTGRES_STSET: postgres-stset
+  REVERSEPROXY_DEP: reverseproxy-dep
   BRANCH: ${{ github.ref_name }}
   SOPS_AGE_PRIVATE_KEY: ${{ secrets.AGE_PRIVATE_KEY }}
   PART_EXERCISE: part3/exercise04
@@ -90,6 +90,7 @@ jobs:
           kubectl rollout status statefulset $POSTGRES_STSET -n ${GITHUB_REF#refs/heads/}
           kubectl rollout status deployment $TODO_BACKEND_DEP -n ${GITHUB_REF#refs/heads/}
           kubectl rollout status deployment $TODO_DEP -n ${GITHUB_REF#refs/heads/}
+          kubectl rollout status deployment $REVERSEPROXY_DEP -n ${GITHUB_REF#refs/heads/}
           kubectl get services -o wide -n ${GITHUB_REF#refs/heads/}
 
       - name: Clean up decrypted secrets

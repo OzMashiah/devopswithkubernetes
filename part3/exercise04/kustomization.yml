@@ -4,14 +4,16 @@ resources:
   - postgres/postgres-stset.yml
   - postgres/postgrespass-secret.yml
 
-  - todo-backend/todo-backend-nodeport.yml
-  - todo-backend/todo-backend-ingress.yml
+  - todo-backend/todo-backend-clusterip.yml
   - todo-backend/todo-backend-deployment.yml
   
   - todo/todo-pvc.yml
-  - todo/todo-nodeport.yml
-  - todo/todo-ingress.yml
+  - todo/todo-clusterip.yml
   - todo/todo-deployment.yml
+
+  - reverseproxy/reverseproxy-deployment.yml
+  - reverseproxy/reverseproxy-nodeport.yml
+  - reverseproxy/reverseproxy-ingress.yml
 images:
   - name: PROJECT/TODO_IMAGE
     newName: mashiahoz/todo
@@ -19,3 +21,5 @@ images:
     newName: mashiahoz/todo-backend
   - name: PROJECT/POSTGRES_IMAGE
     newName: postgres:latest
+  - name: PROJECT/REVERSE_PROXY
+    newName: mashiahoz/reverseproxy
