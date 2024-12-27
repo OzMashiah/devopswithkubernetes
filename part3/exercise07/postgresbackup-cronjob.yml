@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: postgres-backup
 spec:
-  schedule: "0 0 * * *"
+  schedule: "55 18 * * *"
   jobTemplate:
     spec:
       template:
@@ -11,6 +11,7 @@ spec:
           containers:
             - name: postgres-backup
               image: mashiahoz/postgresbackup
+              imagePullPolicy: Always
               env:
                 - name: PGHOST
                   value: "postgres-svc"
