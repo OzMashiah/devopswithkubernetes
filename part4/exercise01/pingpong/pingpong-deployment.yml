@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: logpong
+  name: pingpong-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingpong 
+  template:
+    metadata:
+      labels:
+        app: pingpong 
+    spec:
+      containers:
+        - name: pingpong 
+          image: mashiahoz/pingpong:latest
+          readinessProbe:
+            initialDelaySeconds: 15 # Initial delay until the readiness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+               path: /healthz
+               port: 5001
+          env:
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-password
+                key: DB_PASSWORD
