@@ -10,7 +10,7 @@
             margin-top: 10px;
         }
         .image-container img {
-            max-width: 25%;
+            max-width: 10%;
             height: auto;
         }
         .controls {
@@ -20,6 +20,10 @@
         .list-container {
             margin-top: 15px;
             text-align: center;
+        }
+        .done {
+            text-decoration: line-through;
+            color: gray;
         }
     </style>
 </head>
@@ -53,12 +57,26 @@
                 .then(data => {
                     let listContainer = document.querySelector('.list-container div');
                     listContainer.innerHTML = ''; // Clear the list before adding new items
-                    
+
                     // Loop through the to-dos and create a paragraph for each
                     data.forEach(todo => {
                         let todoItem = document.createElement('p');
                         todoItem.textContent = todo.todo; // Display the to-do text
-                        listContainer.appendChild(todoItem); // Append the item to the container
+                        todoItem.dataset.id = todo.id; // Store the to-do ID for future reference
+                        if (todo.done) {
+                            todoItem.classList.add('done'); // Mark the to-do as done
+                        }
+
+                        // Create a "Done" button
+                        let doneButton = document.createElement('button');
+                        doneButton.textContent = 'Mark as Done';
+                        doneButton.addEventListener('click', function() {
+                            markAsDone(todo.id, todoItem);
+                        });
+
+                        // Append the to-do and the button to the list container
+                        listContainer.appendChild(todoItem);
+                        listContainer.appendChild(doneButton);
                     });
                 })
                 .catch(error => {
@@ -69,7 +87,7 @@
         // Handle new to-do submission
         document.getElementById('submit').addEventListener('click', function() {
             const todoText = document.getElementById('size').value; // Get the entered to-do text
-            
+
             // Make sure the input is not empty
             if (todoText) {
                 // Send a POST request to add the new to-do
@@ -85,7 +103,7 @@
                     if (data.message) {
                         // If the to-do is added successfully, display a success message
                         alert('To-Do added!');
-                        
+
                         // Add the new to-do to the list dynamically
                         let listContainer = document.querySelector('.list-container div');
                         let todoItem = document.createElement('p');
@@ -106,6 +124,32 @@
                 alert('Please enter a to-do item.');
             }
         });
+
+        // Function to mark a to-do as done
+        function markAsDone(id, todoItem) {
+            fetch(`http://localhost:8081/todos/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ done: true }) // Update the "done" field
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    // Mark the to-do visually as done
+                    todoItem.classList.add('done');
+                    todoItem.textContent = todoItem.textContent + " (Done)"; // Optionally add text to indicate it's done
+                    alert('To-Do marked as done!');
+                } else {
+                    alert('Error updating to-do: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error marking to-do as done:', error);
+                alert('There was an error marking your to-do as done');
+            });
+        }
     </script>
 
 </body>

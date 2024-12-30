@@ -59,7 +59,8 @@ def initialize_db():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS todos (
             id SERIAL PRIMARY KEY,
-            todo TEXT NOT NULL
+            todo TEXT NOT NULL,
+            done BOOLEAN DEFAULT FALSE
         );
         """)
 
@@ -83,11 +84,11 @@ def healthcheck():
 def get_todos():
     conn = get_db_connection()
     cursor = conn.cursor()
-    
-    cursor.execute("SELECT id, todo FROM todos")
+
+    cursor.execute("SELECT id, todo, done FROM todos")  # Include the 'done' status in the query
     todos = cursor.fetchall()
-    todo_list = [{"id": todo[0], "todo": todo[1]} for todo in todos]
-    
+    todo_list = [{"id": todo[0], "todo": todo[1], "done": todo[2]} for todo in todos]
+
     cursor.close()
     conn.close()
 
@@ -125,6 +126,45 @@ def readiness_check():
     except psycopg2.OperationalError as e:
         print(f"Database connection error: {e}")
         return 'Database connection is unhealthy', 500
+
+# PUT /todos/<id> - Update a to-do's done status
+@app.route('/todos/<int:id>', methods=['PUT'])
+def update_todo_status(id):
+    data = request.get_json()
+    done_status = data.get('done')  # This should be a boolean value
+
+    if done_status is None:
+        return jsonify({'error': 'Done status is required'}), 400
+
+    # Validate that done_status is a boolean
+    if not isinstance(done_status, bool):
+        return jsonify({'error': 'Done status must be a boolean'}), 400
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Update the done status of the to-do with the given id
+    cursor.execute("""
+        UPDATE todos
+        SET done = %s
+        WHERE id = %s
+        RETURNING id, todo, done;
+    """, (done_status, id))
+
+    updated_todo = cursor.fetchone()
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    if updated_todo:
+        return jsonify({
+            'message': 'To-do updated successfully',
+            'id': updated_todo[0],
+            'todo': updated_todo[1],
+            'done': updated_todo[2]
+        }), 200
+    else:
+        return jsonify({'error': 'To-do not found'}), 404
 
 if __name__ == '__main__':
     initialize_db()
