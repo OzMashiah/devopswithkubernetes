@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Image Display</title>
+    <style>
+        .image-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .image-container img {
+            max-width: 25%;
+            height: auto;
+        }
+        .controls {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .list-container {
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <center><h1>My To-Do List Project</h1></center>
+    <!-- Image Display Section -->
+    <div class="image-container">
+        <img id="randomImage" src="/image" alt="Random Image" />
+    </div>
+
+    <!-- Control Section -->
+    <div class="controls">
+        <h3>To-Do List</h3>
+	<input type="text" id="size" placeholder="Enter task" />
+        <button type="button" id="submit">Submit</button>
+    </div>
+
+    <!-- List Section -->
+    <div class="list-container">
+        <h3>Items</h3>
+    	<div>
+    	    <p>Milk</p>
+           <p>Bread</p>
+	</div>
+    </div>
+
+</body>
+</html>
+
