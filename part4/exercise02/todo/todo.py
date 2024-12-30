@@ -27,6 +27,16 @@ def download_image():
             f.write(response.content)
         time.sleep(3600)  # Download every hour
 
+@app.route('/healthz', methods=['GET'])
+def readiness_probe():
+    try:
+        response = requests.get("http://todo-backend-svc:2345/todos", timeout=5)
+        response.raise_for_status()
+        return 'Backend is healthy and reachable', 200
+    except requests.exceptions.RequestException as e:
+        print(f"Backend connection error: {e}")
+        return 'Backend is unhealthy or unreachable', 500
+
 if __name__ == '__main__':
     # Start the image downloading in a separate thread
     download_thread = threading.Thread(target=download_image)

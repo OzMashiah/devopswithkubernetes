@@ -115,6 +115,17 @@ def create_todo():
 
     return jsonify({'message': 'Todo created successfully', 'id': new_id}), 201
 
+# healthz endpoint for readiness probe
+@app.route('/healthz', methods=['GET'])
+def readiness_check():
+    try:
+        conn = get_db_connection()
+        conn.close()
+        return 'Database connection is healthy', 200
+    except psycopg2.OperationalError as e:
+        print(f"Database connection error: {e}")
+        return 'Database connection is unhealthy', 500
+
 if __name__ == '__main__':
     initialize_db()
     app.run(host='0.0.0.0', port=5001)  # Running on port 5001

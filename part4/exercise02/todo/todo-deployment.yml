@@ -20,6 +20,12 @@ spec:
       containers:
         - name: todo 
           image: PROJECT/TODO_IMAGE
+          readinessProbe:
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            httpGet:
+               path: /healthz
+               port: 5000
           volumeMounts:
             - name: todo-image
               mountPath: /usr/src/app/images
