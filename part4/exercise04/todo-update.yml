@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: todo-dep
+  namespace: todo
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: todo
+  strategy:
+    canary:
+      steps:
+        - setWeight: 50
+        - analysis:
+            templates:
+            - templateName: cpu-rate
+  template:
+    metadata:
+      labels:
+        app: todo
+    spec:
+      containers:
+        - name: todo
+          image: mashiahoz/todo:v4.04.04
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+               path: /healthz
+               port: 5000
+          livenessProbe:
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            httpGet:
+               path: /healthz
+               port: 5000

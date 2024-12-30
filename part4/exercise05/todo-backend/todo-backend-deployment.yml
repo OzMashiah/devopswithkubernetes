@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: todo
+  name: todo-backend-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-backend 
+  template:
+    metadata:
+      labels:
+        app: todo-backend 
+    spec:
+      containers:
+        - name: todo-backend 
+          image: PROJECT/TODO_BACKEND_IMAGE 
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5 
+            httpGet:
+               path: /healthz
+               port: 5001
+          env:
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-password
+                key: DB_PASSWORD
