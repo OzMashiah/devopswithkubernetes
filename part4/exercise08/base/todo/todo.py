@@ -32,7 +32,7 @@ def download_image():
 @app.route('/healthz', methods=['GET'])
 def readiness_probe():
     try:
-        response = requests.get("http://reverseproxy-svc:2345/todos", timeout=5)
+        response = requests.get("http://reverseproxy-svc/todos", timeout=5)
         response.raise_for_status()
         return 'Backend is healthy and reachable', 200
     except requests.exceptions.RequestException as e:
