@@ -1,6 +1,6 @@
 resources:
 - ./../../base
-- broadcaster/broadcaster-deployment
+- broadcaster/broadcaster-deployment.yml
 - db-backup/postgresbackup-cronjob.yml
 
 images:
