@@ -36,7 +36,7 @@ jobs:
           docker build --tag "mashiahoz/reverseproxy:$GITHUB_SHA" ./base/reverseproxy
           docker push "mashiahoz/reverseproxy:$GITHUB_SHA"
 
-          docker build --tag "mashiahoz/broadcaster:$GITHUB_SHA" ./overlays/prod/app/broadcaster
+          docker build --tag "mashiahoz/broadcaster:$GITHUB_SHA" ./overlays/prod/broadcaster
           docker push "mashiahoz/broadcaster:$GITHUB_SHA"
 
       - name: Set up Kustomize
