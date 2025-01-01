@@ -1,0 +1,5 @@
+resources:
+- ./../../base
+- app/db-backup/postgresbackup-cronjob.yml
+
+namePrefix: prod-

@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-backup
+spec:
+  schedule: "55 18 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: postgres-backup
+              image: mashiahoz/postgresbackup
+              imagePullPolicy: Always
+              env:
+                - name: PGHOST
+                  value: "postgres-svc"
+                - name: PGPORT
+                  value: "5432"
+                - name: PGUSER
+                  value: "postgres"
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-password
+                      key: DB_PASSWORD
+                - name: PGDATABASE
+                  value: "todo"
+                - name: GOOGLE_APPLICATION_CREDENTIALS
+                  value: "/etc/gcloud/backup-key.json"
+              volumeMounts:
+                - name: gcs-key
+                  mountPath: /etc/gcloud
+                  readOnly: true
+          restartPolicy: OnFailure
+          volumes:
+            - name: gcs-key
+              secret:
+                secretName: gcs-backup-secret
+                items:
+                  - key: backup-key.json
+                    path: backup-key.json

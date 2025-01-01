@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-stset
+spec:
+  serviceName: postgres-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql-db
+  template:
+    metadata:
+      labels:
+        app: postgresql-db
+    spec:
+      containers:
+        - name: postgresql-db
+          image: PROJECT/POSTGRES_IMAGE 
+          volumeMounts:
+            - name: postgresql-data-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+          env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-password
+                key: DB_PASSWORD
+          ports:
+          - containerPort: 5432
+  volumeClaimTemplates:
+    - metadata:
+        name: postgresql-data-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  labels:
+    app: postgresql-db
+spec:
+  ports:
+  - port: 5432
+  clusterIP: None
+  selector:
+    app: postgresql-db
