@@ -7,6 +7,7 @@ resources:
 - logoutput/logoutput-deployment.yml
 - logoutput/logoutput-nodeport.yml
 - logoutput/logoutput-ingress.yml
+- logoutput/logoutput-configmap.yml
 - pingpong/pingpong-deployment.yml
 - pingpong/pingpong-clusterip.yml
 images:
