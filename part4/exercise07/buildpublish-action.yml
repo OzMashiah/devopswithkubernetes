@@ -40,10 +40,10 @@ jobs:
       - name: Build and publish backend
         run: |-
           cd $PARTEXERCISE_PATH
-          docker build ./logoutput --tag "mashiahoz/logoutput:$GITHUB_SHA" .
+          docker build --tag "mashiahoz/logoutput:$GITHUB_SHA" ./logoutput
           docker push "mashiahoz/logoutput:$GITHUB_SHA"
 
-          docker build ./pingpong --tag "mashiahoz/pingpong:$GITHUB_SHA" .
+          docker build --tag "mashiahoz/pingpong:$GITHUB_SHA" ./pingpong
           docker push "mashiahoz/pingpong:$GITHUB_SHA"
 
       - name: Set up Kustomize
