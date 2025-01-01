@@ -52,7 +52,7 @@
     <script>
         // Fetch existing to-dos when the page loads
         window.onload = function() {
-            fetch('http://reverseproxy-svc/todos') // Make sure the URL is correct
+            fetch('/todos') // Make sure the URL is correct
                 .then(response => response.json()) // Parse the JSON response
                 .then(data => {
                     let listContainer = document.querySelector('.list-container div');
@@ -91,7 +91,7 @@
             // Make sure the input is not empty
             if (todoText) {
                 // Send a POST request to add the new to-do
-                fetch('http://reverseproxy-svc/todos', {
+                fetch('/todos', {
                     method: 'POST', // HTTP method
                     headers: {
                         'Content-Type': 'application/json' // We are sending JSON data
