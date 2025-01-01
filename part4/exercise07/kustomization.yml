@@ -1,18 +1,20 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+ 
+
 resources:
 - postgres/postgres-stset.yml
- 
 - logoutput/logoutput-deployment.yml
 - logoutput/logoutput-nodeport.yml
 - logoutput/logoutput-ingress.yml
-
 - pingpong/pingpong-deployment.yml
 - pingpong/pingpong-clusterip.yml
 images:
 - name: PROJECT/LOGOUTPUT_IMAGE
   newName: mashiahoz/logoutput
+  newTag: 2663b6268346c421272c8eb964cbe1c0c5f2f14d
 - name: PROJECT/PINGPONG_IMAGE
   newName: mashiahoz/pingpong
+  newTag: 2663b6268346c421272c8eb964cbe1c0c5f2f14d
 - name: PROJECT/POSTGRES_IMAGE
   newName: postgres:latest
