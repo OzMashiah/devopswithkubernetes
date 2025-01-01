@@ -8,15 +8,15 @@ images:
   newName: mashiahoz/postgresbackup
 - name: PROJECT/BROADCASTER_IMAGE
   newName: mashiahoz/broadcaster
-  newTag: 7e419ba5c0313edc423f0586f4d6fcb6e476cf2d
+  newTag: 1c4589ee29164cfc7225a0f056e62f5f8df4a03f
 - name: PROJECT/REVERSEPROXY_IMAGE
   newName: mashiahoz/reverseproxy
-  newTag: 7e419ba5c0313edc423f0586f4d6fcb6e476cf2d
+  newTag: 1c4589ee29164cfc7225a0f056e62f5f8df4a03f
 - name: PROJECT/TODO_BACKEND_IMAGE
   newName: mashiahoz/todo-backend
-  newTag: 7e419ba5c0313edc423f0586f4d6fcb6e476cf2d
+  newTag: 1c4589ee29164cfc7225a0f056e62f5f8df4a03f
 - name: PROJECT/TODO_IMAGE
   newName: mashiahoz/todo
-  newTag: 7e419ba5c0313edc423f0586f4d6fcb6e476cf2d
+  newTag: 1c4589ee29164cfc7225a0f056e62f5f8df4a03f
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
