@@ -3,7 +3,6 @@ resources:
 - broadcaster/broadcaster-deployment
 - db-backup/postgresbackup-cronjob.yml
 
-namePrefix: prod-
 images:
   - name: PROJECT/BROADCASTER_IMAGE
     newName: mashiahoz/broadcaster

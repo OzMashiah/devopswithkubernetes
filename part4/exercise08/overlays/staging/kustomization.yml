@@ -2,8 +2,6 @@ resources:
 - ./../../base
 - broadcaster/broadcaster-deployment.yml
 
-namePrefix: staging-
-
 images:
 - name: PROJECT/BROADCASTER_IMAGE
   newName: mashiahoz/broadcaster:justlog
