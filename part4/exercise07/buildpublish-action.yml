@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "$SOPS_AGE_PRIVATE_KEY" > /tmp/age.key
           export SOPS_AGE_KEY_FILE=/tmp/age.key
-          sops -d $PARTEXERCISE_PATH/postgres/postgrespass-secret.enc.yml > PARTEXERCISE_PATH/postgres/postgrespass-secret.yml
+          sops -d $PARTEXERCISE_PATH/postgres/postgrespass-secret.enc.yml > $PARTEXERCISE_PATH/postgres/postgrespass-secret.yml
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -61,4 +61,4 @@ jobs:
           message: New version released ${{ github.sha }}
 
       - name: Clean up decrypted secrets
-        run: rm PARTEXERCISE_PATH/postgres/postgrespass-secret.yml
+        run: rm $PARTEXERCISE_PATH/postgres/postgrespass-secret.yml
