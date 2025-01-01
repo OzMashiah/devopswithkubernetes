@@ -7,12 +7,12 @@ images:
   newName: mashiahoz/broadcaster:justlog
 - name: PROJECT/REVERSEPROXY_IMAGE
   newName: mashiahoz/reverseproxy
-  newTag: be35de03c320268669a4ac0748863812f8ca7cfa
+  newTag: ac0448a076fa7f2e01ac48a2b9ec76afc9b2fbe8
 - name: PROJECT/TODO_BACKEND_IMAGE
   newName: mashiahoz/todo-backend
-  newTag: be35de03c320268669a4ac0748863812f8ca7cfa
+  newTag: ac0448a076fa7f2e01ac48a2b9ec76afc9b2fbe8
 - name: PROJECT/TODO_IMAGE
   newName: mashiahoz/todo
-  newTag: be35de03c320268669a4ac0748863812f8ca7cfa
+  newTag: ac0448a076fa7f2e01ac48a2b9ec76afc9b2fbe8
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
