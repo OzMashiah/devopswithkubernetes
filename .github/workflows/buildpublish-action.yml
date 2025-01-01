@@ -58,7 +58,7 @@ jobs:
       - name: commit kustomization.yaml to GitHub
         uses: EndBug/add-and-commit@v9
         with:
-          add: ${{ env.KUSTOMIZE_PATH }}/kustomization.yml
+          add: ${{ env.PARTEXERCISE_PATH }}/kustomization.yml
           message: New version released ${{ github.sha }}
 
       - name: Clean up decrypted secrets
