@@ -15,4 +15,4 @@ spec:
       containers:
         - name: broadcaster 
           image: PROJECT/BROADCASTER_IMAGE
-          imagePullPolicy: always
+          imagePullPolicy: Always

@@ -127,7 +127,7 @@
 
         // Function to mark a to-do as done
         function markAsDone(id, todoItem) {
-            fetch(`http://reverseproxy-svc:2345/todos/${id}`, {
+            fetch(`/todos/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
