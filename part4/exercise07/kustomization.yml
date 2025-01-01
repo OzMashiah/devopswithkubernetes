@@ -13,9 +13,9 @@ resources:
 images:
 - name: PROJECT/LOGOUTPUT_IMAGE
   newName: mashiahoz/logoutput
-  newTag: c252f2bbbc91e94a36d3cf41b23b61210be1eab6
+  newTag: a4cc3dbc6d88c6fa73ad2d823a2819cf778f07b8
 - name: PROJECT/PINGPONG_IMAGE
   newName: mashiahoz/pingpong
-  newTag: c252f2bbbc91e94a36d3cf41b23b61210be1eab6
+  newTag: a4cc3dbc6d88c6fa73ad2d823a2819cf778f07b8
 - name: PROJECT/POSTGRES_IMAGE
   newName: postgres:latest
