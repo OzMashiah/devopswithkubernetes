@@ -1,29 +1,32 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources:
-  - postgres/postgres-stset.yml
 
-  - todo-backend/todo-backend-clusterip.yml
-  - todo-backend/todo-backend-deployment.yml
   
-  - todo/todo-pvc.yml
-  - todo/todo-clusterip.yml
-  - todo/todo-deployment.yml
 
-  - broadcaster/broadcaster-deployment.yml
-  - broadcaster/broadcaster-clusterip.yml
 
-  - reverseproxy/reverseproxy-deployment.yml
-  - reverseproxy/reverseproxy-nodeport.yml
-  - reverseproxy/reverseproxy-ingress.yml
+resources:
+- postgres/postgres-stset.yml
+- todo-backend/todo-backend-clusterip.yml
+- todo-backend/todo-backend-deployment.yml
+- todo/todo-pvc.yml
+- todo/todo-clusterip.yml
+- todo/todo-deployment.yml
+- broadcaster/broadcaster-deployment.yml
+- broadcaster/broadcaster-clusterip.yml
+- reverseproxy/reverseproxy-deployment.yml
+- reverseproxy/reverseproxy-nodeport.yml
+- reverseproxy/reverseproxy-ingress.yml
 images:
-  - name: PROJECT/TODO_IMAGE
-    newName: mashiahoz/todo
-  - name: PROJECT/TODO_BACKEND_IMAGE
-    newName: mashiahoz/todo-backend
-  - name: PROJECT/POSTGRES_IMAGE
-    newName: postgres:latest
-  - name: PROJECT/BROADCASTER_IMAGE
-    newName: mashiahoz/broadcaster
-  - name: PROJECT/REVERSEPROXY_IMAGE
-    newName: mashiahoz/reverseproxy
+- name: PROJECT/BROADCASTER_IMAGE
+  newName: mashiahoz/broadcaster
+- name: PROJECT/POSTGRES_IMAGE
+  newName: postgres:latest
+- name: PROJECT/REVERSEPROXY_IMAGE
+  newName: mashiahoz/reverseproxy
+  newTag: 8ca0a8b82dece67adaef4f7b2068bef0107b1e19
+- name: PROJECT/TODO_BACKEND_IMAGE
+  newName: mashiahoz/todo-backend
+  newTag: 8ca0a8b82dece67adaef4f7b2068bef0107b1e19
+- name: PROJECT/TODO_IMAGE
+  newName: mashiahoz/todo
+  newTag: 8ca0a8b82dece67adaef4f7b2068bef0107b1e19
