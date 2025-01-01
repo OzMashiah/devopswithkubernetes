@@ -51,6 +51,7 @@ jobs:
 
       - name: Use right image
         run: |-
+          cd $PARTEXERCISE_PATH
           kustomize edit set image PROJECT/LOGOUTPUT_IMAGE=mashiahoz/logoutput:$GITHUB_SHA
           kustomize edit set image PROJECT/PINGPONG_IMAGE=mashiahoz/pingpong:$GITHUB_SHA
 
