@@ -22,7 +22,7 @@ async def message_handler(msg):
 async def run():
     """ Function to connect to NATS and subscribe to the required topic """
     # Connect to the NATS server
-    await nc.connect("nats://localhost:4222")  # Adjust the server URL as needed
+    await nc.connect("nats://my-nats.default:4222")  # Adjust the server URL as needed
     
     # Subscribe to a NATS topic
     await nc.subscribe("your_topic", cb=message_handler)
