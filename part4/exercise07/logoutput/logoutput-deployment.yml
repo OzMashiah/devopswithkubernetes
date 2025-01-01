@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: logoutput
-          image: mashiahoz/logoutput
+          image: PROJECT/LOGOUTPUT_IMAGE
           readinessProbe:
             initialDelaySeconds: 15
             periodSeconds: 5 

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pingpong 
-          image: mashiahoz/pingpong:latest
+          image: PROJECT/PINGPONG_IMAGE
           readinessProbe:
             initialDelaySeconds: 15 # Initial delay until the readiness is tested
             periodSeconds: 5 # How often to test
