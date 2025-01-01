@@ -1,5 +1,11 @@
 resources:
 - ./../../base
-- app/db-backup/postgresbackup-cronjob.yml
+- broadcaster/broadcaster-deployment
+- db-backup/postgresbackup-cronjob.yml
 
 namePrefix: prod-
+images:
+  - name: PROJECT/BROADCASTER_IMAGE
+    newName: mashiahoz/broadcaster
+  - name: PROJECT/BACKUP_IMAGE
+    newName: mashiahoz/postgresbackup

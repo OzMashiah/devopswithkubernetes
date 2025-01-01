@@ -44,7 +44,7 @@ jobs:
 
       - name: Use right image
         run: |-
-          cd $PARTEXERCISE_PATH/base
+          cd $PARTEXERCISE_PATH/overlays/prod
           kustomize edit set image PROJECT/TODO_IMAGE=mashiahoz/todo:$GITHUB_SHA
           kustomize edit set image PROJECT/TODO_BACKEND_IMAGE=mashiahoz/todo-backend:$GITHUB_SHA
           kustomize edit set image PROJECT/REVERSEPROXY_IMAGE=mashiahoz/reverseproxy:$GITHUB_SHA
@@ -53,5 +53,5 @@ jobs:
       - name: commit kustomization.yaml to GitHub
         uses: EndBug/add-and-commit@v9
         with:
-          add: ${{ env.PARTEXERCISE_PATH }}/base/kustomization.yml
+          add: ${{ env.PARTEXERCISE_PATH }}/overlays/prod/kustomization.yml
           message: New version released ${{ github.sha }}

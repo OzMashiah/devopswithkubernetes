@@ -1,5 +1,6 @@
 resources:
 - ./../../base
+- broadcaster/broadcaster-deployment.yml
 
 namePrefix: staging-
 

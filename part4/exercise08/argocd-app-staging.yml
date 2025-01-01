@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/mashiahoz/devopswithkubernetes
-    path: overlays/staging
+    repoURL: https://github.com/ozmashiah/devopswithkubernetes
+    path: part4/exercise08/overlays/staging
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
