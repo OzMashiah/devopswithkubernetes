@@ -10,3 +10,6 @@ resources:
 - reverseproxy/reverseproxy-deployment.yml
 - reverseproxy/reverseproxy-nodeport.yml
 - reverseproxy/reverseproxy-ingress.yml
+images:
+- name: PROJECT/POSTGRES_IMAGE
+  newName: postgres:latest
