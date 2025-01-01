@@ -49,7 +49,7 @@ def save_received_tasks():
         task_data = request.json
         received_tasks.append(task_data)  # Store it in memory
         print(received_tasks)
-        print(f"Received task data: {task_data}")
+        print(f"Received task data: {task_data} ")
         return jsonify({"message": "Task saved successfully"}), 200
     except Exception as e:
         print(f"Error saving task: {e}")
