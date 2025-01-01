@@ -26,7 +26,7 @@ def get_status():
 @app.route('/healthz', methods=['GET'])
 def readiness_probe():
     try:
-        response = requests.get("http://pingpong-svc:5001/pingpong", timeout=5)
+        response = requests.get("http://pingpong-svc:2345/pingpong", timeout=5)
         response.raise_for_status()
         return 'Backend is healthy and reachable', 200
     except requests.exceptions.RequestException as e:
