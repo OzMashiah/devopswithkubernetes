@@ -32,13 +32,13 @@ jobs:
       - name: Build and publish backend
         run: |-
           cd $PARTEXERCISE_PATH
-          docker build --tag "mashiahoz/todo:$GITHUB_SHA" ./base/todo
+          docker build --no-cache --tag "mashiahoz/todo:$GITHUB_SHA" ./base/todo
           docker push "mashiahoz/todo:$GITHUB_SHA"
 
-          docker build --tag "mashiahoz/todo-backend:$GITHUB_SHA" ./base/todo-backend
+          docker build --no-cache --tag "mashiahoz/todo-backend:$GITHUB_SHA" ./base/todo-backend
           docker push "mashiahoz/todo-backend:$GITHUB_SHA"
 
-          docker build --tag "mashiahoz/reverseproxy:$GITHUB_SHA" ./base/reverseproxy
+          docker build --no-cache --tag "mashiahoz/reverseproxy:$GITHUB_SHA" ./base/reverseproxy
           docker push "mashiahoz/reverseproxy:$GITHUB_SHA"
 
           docker build --no-cache --tag "mashiahoz/broadcaster:$GITHUB_SHA" ./overlays/prod/broadcaster
