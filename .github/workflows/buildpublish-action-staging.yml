@@ -2,6 +2,7 @@ name: Build and publish staging application
 
 on:
   push:
+    tags: []
 
 env:
   PARTEXERCISE_PATH: part4/exercise08

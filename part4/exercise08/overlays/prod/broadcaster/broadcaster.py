@@ -48,7 +48,7 @@ class Broadcaster:
             await asyncio.sleep(1)
 
 def start_nats_loop():
-    """ Start the NATS loop in a separate thread """
+    """ Start the NATS loop in a separate thread   """
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(broadcaster.run())
