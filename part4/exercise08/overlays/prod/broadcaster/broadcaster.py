@@ -58,7 +58,7 @@ if __name__ == "__main__":
     broadcaster = Broadcaster(
         nats_url="nats://my-nats.default:4222",
         subject="todo.tasks",
-        frontend_url="http://reverseproxy-svc:2345/received-tasks"
+        frontend_url="http://reverseproxy-svc/received-tasks"
     )
 
     # Start the NATS event loop in a separate thread
