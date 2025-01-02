@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-nats
+spec:
+  containers:
+  - name: alpine-nats
+    image: alpine:latest
+    command: ["sleep", "3600"]
