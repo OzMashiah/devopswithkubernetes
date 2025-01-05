@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverseproxy-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reverseproxy
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: reverseproxy
+    spec:
+      containers:
+      - image: PROJECT/REVERSEPROXY_IMAGE
+        name: reverseproxy
+---

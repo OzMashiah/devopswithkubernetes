@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-stset
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql-db
+  serviceName: postgres-svc
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: postgresql-db
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DB_PASSWORD
+              name: postgres-password
+        image: PROJECT/POSTGRES_IMAGE
+        name: postgresql-db
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgresql-data-storage
+          subPath: postgres
+  volumeClaimTemplates:
+  - metadata:
+      name: postgresql-data-storage
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+      storageClassName: standard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgresql-db
+  name: postgres-svc
+spec:
+  clusterIP: None
+  ports:
+  - port: 5432
+  selector:
+    app: postgresql-db
+---

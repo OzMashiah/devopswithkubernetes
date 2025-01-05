@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: todo
+    spec:
+      containers:
+      - image: PROJECT/TODO_IMAGE
+        name: todo
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 8
+          periodSeconds: 10
+        volumeMounts:
+        - mountPath: /usr/src/app/images
+          name: todo-image
+      volumes:
+      - name: todo-image
+        persistentVolumeClaim:
+          claimName: todo-claim
+---

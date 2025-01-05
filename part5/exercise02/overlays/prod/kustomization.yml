@@ -1,0 +1,22 @@
+resources:
+- ./../../base
+- broadcaster/broadcaster-deployment.yml
+- db-backup/postgresbackup-cronjob.yml
+
+images:
+- name: PROJECT/BACKUP_IMAGE
+  newName: mashiahoz/postgresbackup
+- name: PROJECT/BROADCASTER_IMAGE
+  newName: mashiahoz/broadcaster
+  newTag: 3edc3359a477dd4b8e723481f06ee177865f3740
+- name: PROJECT/REVERSEPROXY_IMAGE
+  newName: mashiahoz/reverseproxy
+  newTag: 3edc3359a477dd4b8e723481f06ee177865f3740
+- name: PROJECT/TODO_BACKEND_IMAGE
+  newName: mashiahoz/todo-backend
+  newTag: 3edc3359a477dd4b8e723481f06ee177865f3740
+- name: PROJECT/TODO_IMAGE
+  newName: mashiahoz/todo
+  newTag: 3edc3359a477dd4b8e723481f06ee177865f3740
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
