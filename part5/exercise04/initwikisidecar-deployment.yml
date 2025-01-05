@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: initwikisidecar-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: initwikisidecar
+  template:
+    metadata:
+      labels:
+        app: initwikisidecar
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          volumeMounts:
+            - name: public-volume
+              mountPath: /usr/share/nginx/html
+
+        - name: sidecar
+          image: alpine/curl
+          command:
+            - /bin/sh
+            - -c
+            - |
+              while true; do
+                sleep $((RANDOM % 600 + 300)) # Wait for random time between 5-15 minutes
+                curl -s -L https://en.wikipedia.org/wiki/Special:Random > /mnt/public/www/index.html
+              done
+          volumeMounts:
+            - name: public-volume
+              mountPath: /mnt/public/www
+
+      initContainers:
+        - name: init-curl
+          image: curlimages/curl:latest
+          command:
+            - /bin/sh
+            - -c
+            - "curl -s https://en.wikipedia.org/wiki/Kubernetes > /mnt/public/www/index.html"
+          volumeMounts:
+            - name: public-volume
+              mountPath: /mnt/public/www
+
+      volumes:
+        - name: public-volume
+          emptyDir: {}
+
