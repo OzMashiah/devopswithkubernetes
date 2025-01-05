@@ -1,0 +1,6 @@
+apiVersion: part5.dwk.part5.dwk/v1
+kind: DummySite
+metadata:
+  name: kubernetes-wiki
+spec:
+  websiteURL: "https://en.wikipedia.org/wiki/Kubernetes"

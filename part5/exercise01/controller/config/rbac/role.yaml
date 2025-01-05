@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - part5.dwk.part5.dwk
+  resources:
+  - dummysites
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - part5.dwk.part5.dwk
+  resources:
+  - dummysites/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - part5.dwk.part5.dwk
+  resources:
+  - dummysites/status
+  verbs:
+  - get
+  - patch
+  - update

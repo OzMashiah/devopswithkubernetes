@@ -1,0 +1,9 @@
+apiVersion: part5.dwk.part5.dwk/v1
+kind: DummySite
+metadata:
+  labels:
+    app.kubernetes.io/name: controller
+    app.kubernetes.io/managed-by: kustomize
+  name: dummysite-sample
+spec:
+  # TODO(user): Add fields here

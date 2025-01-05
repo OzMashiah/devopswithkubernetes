@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummysite-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dummysite
+  template:
+    metadata:
+      labels:
+        app: dummysite
+    spec:
+      containers:
+        - name: dummysite-dep
+          image: mashiahoz/dummysite@sha256:169d9842817a69b5bfa15302aab4b8238a059fce3e47236278fbe514541ee88c
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: website-content-volume
+              mountPath: /usr/share/config
+              readOnly: true 
+      volumes:
+        - name: website-content-volume
+          configMap:
+            name: kubernetes-wiki-html
