@@ -1,0 +1,16 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: logoutput-svc
+  namespace: logpong
+spec:
+  template:
+    metadata:
+      labels:
+        app: logoutput
+    spec:
+      containers:
+        - name: logoutput
+          image: mashiahoz/logoutput
+          ports:
+            - containerPort: 8080
